@@ -4,3 +4,4 @@
 2026-09-20 10:00:08 | WARNING | MOTOR_1 | temperature rising temperature=76
 2026-09-20 10:00:10 | ERROR | MOTOR_1 | overheat detected temperature=91
 2026-09-20 10:00:11 | ERROR | CONTROL | motor stopped unexpectedly
+2026-09-20 10:00:12 | MOTOR_1 | malformed log entry
