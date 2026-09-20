@@ -1,0 +1,6 @@
+2026-09-20 10:00:01 | INFO | SYSTEM | robot startup completed
+2026-09-20 10:00:03 | INFO | MOTOR_1 | motor started rpm=1200 temperature=42
+2026-09-20 10:00:05 | INFO | IMU | sensor initialized
+2026-09-20 10:00:08 | WARNING | MOTOR_1 | temperature rising temperature=76
+2026-09-20 10:00:10 | ERROR | MOTOR_1 | overheat detected temperature=91
+2026-09-20 10:00:11 | ERROR | CONTROL | motor stopped unexpectedly
