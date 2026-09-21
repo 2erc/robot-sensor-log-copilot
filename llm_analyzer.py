@@ -37,7 +37,7 @@ def analyze_issues(issues_json):
                 ),
             },
         ],
-        max_tokens=500,
+        max_tokens=800,
         stream=False,
         extra_body={"thinking": {"type": "disabled"}},
     )

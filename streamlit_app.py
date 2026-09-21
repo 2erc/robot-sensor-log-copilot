@@ -1,5 +1,7 @@
+import json
 import streamlit as st
 
+from llm_analyzer import analyze_issues
 from log_parser import parse_log_text
 
 st.set_page_config(
@@ -25,3 +27,24 @@ if uploaded_file is not None:
 
     st.subheader("Extracted issues")
     st.json(issues)
+
+    analyze_clicked = st.button(
+        "Analyze with DeepSeek",
+        type="primary",
+    )
+
+    if analyze_clicked:
+        if not issues:
+            st.warning("No warnings or errors were found in this log.")
+        else:
+            issues_json = json.dumps(
+                issues,
+                indent=2,
+                ensure_ascii=False,
+            )
+
+            with st.spinner("Analyzing log issues..."):
+                analysis = analyze_issues(issues_json)
+
+            st.subheader("LLM analysis")
+            st.markdown(analysis)
