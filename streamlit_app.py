@@ -19,6 +19,10 @@ uploaded_file = st.file_uploader(
     "Upload a .txt log file",
     type=["txt"],
 )
+st.caption(
+    "Expected format: timestamp | level | module | message "
+    "(one log entry per line)"
+)
 
 if uploaded_file is not None:
     try:
