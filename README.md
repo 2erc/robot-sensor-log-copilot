@@ -2,6 +2,10 @@
 
 A lightweight Streamlit app that extracts warnings and errors from robot logs and uses DeepSeek to provide debugging suggestions.
 
+## Live Demo
+
+Try the deployed app: [Robot / Sensor Log Copilot](https://robot-sensor-log-copilot-ttbpwesa9jp7hp6zx7vdxj.streamlit.app/)
+
 ## Features
 
 - Upload a UTF-8 `.txt` robot log
