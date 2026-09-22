@@ -1,8 +1,11 @@
 import json
+import logging
 import streamlit as st
 
 from llm_analyzer import analyze_issues
 from log_parser import parse_log_text
+
+logger = logging.getLogger(__name__)
 
 st.set_page_config(
     page_title="Robot / Sensor Log Copilot",
@@ -18,7 +21,11 @@ uploaded_file = st.file_uploader(
 )
 
 if uploaded_file is not None:
-    log_text = uploaded_file.getvalue().decode("utf-8")
+    try:
+        log_text = uploaded_file.getvalue().decode("utf-8")
+    except UnicodeDecodeError:
+        st.error("Could not read this file. Please upload a UTF-8 encoded text file.")
+        st.stop()
 
     st.subheader("Raw log")
     st.text(log_text)
@@ -43,8 +50,12 @@ if uploaded_file is not None:
                 ensure_ascii=False,
             )
 
-            with st.spinner("Analyzing log issues..."):
-                analysis = analyze_issues(issues_json)
-
-            st.subheader("LLM analysis")
-            st.markdown(analysis)
+            try:
+                with st.spinner("Analyzing log issues..."):
+                    analysis = analyze_issues(issues_json)
+            except Exception:
+                logger.exception("DeepSeek analysis failed")
+                st.error("Analysis failed. Please check the API configuration and try again.")
+            else:
+                st.subheader("LLM analysis")
+                st.markdown(analysis)
