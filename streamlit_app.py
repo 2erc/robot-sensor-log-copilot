@@ -15,6 +15,17 @@ st.set_page_config(
 st.title("Robot / Sensor Log Copilot")
 st.write("Upload a robot log and get an AI-assisted analysis.")
 
+st.subheader("1. Choose a log")
+st.write("New here? Download the sample log, then upload it below.")
+
+with open("sample_data/motor_log.txt", "rb") as sample_file:
+    st.download_button(
+        "Download sample log",
+        data=sample_file,
+        file_name="motor_log.txt",
+        mime="text/plain",
+    )
+
 uploaded_file = st.file_uploader(
     "Upload a .txt log file",
     type=["txt"],
@@ -31,14 +42,16 @@ if uploaded_file is not None:
         st.error("Could not read this file. Please upload a UTF-8 encoded text file.")
         st.stop()
 
-    st.subheader("Raw log")
-    st.text(log_text)
-
     issues = parse_log_text(log_text)
 
-    st.subheader("Extracted issues")
+    st.subheader("2. Review extracted issues")
+    st.write(f"Found {len(issues)} warning/error entries.")
     st.json(issues)
 
+    with st.expander("View raw log"):
+        st.text(log_text)
+
+    st.subheader("3. Get AI analysis")
     analyze_clicked = st.button(
         "Analyze with DeepSeek",
         type="primary",
